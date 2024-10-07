@@ -43,10 +43,9 @@ const App = () => {
   return (
     <div className="todo-container">
       <h1>Todo List</h1>
-      {/* Verwendung der TodoInput-Komponente */}
       <TodoInput addTodo={addTodo} />
-      {/* Verwendung der TodoList-Komponente */}
       <TodoList todos={todos} toggleCompletion={toggleCompletion} deleteTodo={deleteTodo} />
+      <p>&copy; Michael Koch</p>
     </div>
   );
 };

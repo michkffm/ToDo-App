@@ -76,10 +76,32 @@ button:hover {
 }
 
 .todo-item:last-child {
-  border-bottom: none; /* Entfernt die untere Linie vom letzten Element */
+  border-bottom: none; 
 }
 
 .completed span {
-  text-decoration: line-through; /* Durchgestrichener Text für erledigte Todos */
-  color: #aaa; /* Helle Schriftfarbe für erledigte Todos */
+  text-decoration: line-through; 
+  color: #aaa; 
+}
+p {
+  margin-left: 90px;
+  margin-top: 50px;
+  position: relative;
+  top: 30px;
+  color: rgb(155, 26, 180)
+}
+p:hover {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

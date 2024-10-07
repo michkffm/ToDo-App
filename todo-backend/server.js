@@ -4,7 +4,6 @@ import cors from 'cors';
 const app = express();
 
 app.use(cors()); 
-
 app.use(express.json()); 
 
 let todos = [
@@ -15,7 +14,7 @@ let todos = [
 
 
 app.get('/api/todos', (req, res) => {
-  res.json(todos);
+  res.status(200).json(todos); 
 });
 
 
@@ -26,26 +25,44 @@ app.post('/api/todos', (req, res) => {
     completed: false,
   };
   todos.push(newTodo);
-  res.status(201).json(newTodo);
+  res.status(201).json(newTodo); 
 });
 
 
 app.put('/api/todos/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const todo = todos.find((t) => t.id === id);
+  
   if (todo) {
-    todo.completed = !todo.completed;
-    res.json(todo);
+    todo.completed = !todo.completed; 
+    res.status(200).json(todo); 
   } else {
-    res.status(404).json({ message: 'Todo not found' });
+    res.status(404).json({ message: 'Todo nicht gefunden' }); 
   }
 });
 
 
 app.delete('/api/todos/:id', (req, res) => {
   const id = parseInt(req.params.id);
-  todos = todos.filter((todo) => todo.id !== id);
-  res.status(204).send(); 
+  const todoIndex = todos.findIndex((todo) => todo.id === id);
+  
+  if (todoIndex !== -1) {
+    todos.splice(todoIndex, 1); 
+    res.status(204).send(); 
+  } else {
+    res.status(404).json({ message: 'Todo nicht gefunden' }); 
+  }
+});
+
+
+app.use((req, res) => {
+  res.status(404).json({ message: 'Die angeforderte Ressource wurde nicht gefunden.' });
+});
+
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Etwas ist schiefgelaufen.' });
 });
 
 const PORT = 4000;
